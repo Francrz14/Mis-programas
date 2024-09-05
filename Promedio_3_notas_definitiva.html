@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promedios Alumnos</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      background-color: rgb(230, 216, 243);
+      margin-top: 200px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #estilos_tabla {
+      border: 1px solid black;
+      border: 2px solid black;
+      border-radius: 3px;
+      border-collapse: separate;
+      /* Separar los bordes de las celdas */
+      border-spacing: 3px;
+      /* Espacio entre las celdas */
+      width: fit-content;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      background-color: blueviolet;
+    }
+
+    #estilos_tabla td {
+      padding: 4px 7px;
+      margin: 5px;
+      /* Espaciado interno de las celdas */
+      border: 1px solid black;
+      /* Borde de las celdas */
+      background-color: lightblue;
+    }
+
+    p {
+      background-color: lightblue;
+      padding: 5px 35px;
+      border: 2px solid black;
+      color: red;
+      border-radius: 20px;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+      transition: box-shadow 0.3s ease;
+    }
+
+    p:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+      box-shadow: 3px 3px 6px 4px rgba(69, 71, 222, 0.5);
+    }
+
+    .texto-animado {
+      animation-name: animacion-texto;
+      animation-duration: 2s;
+      animation-timing-function: linear;
+      
+    }
+
+    @keyframes animacion-texto {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Crea una función en JS en el que se ingresen 3 notas del alumno, si el promedio es mayor o
+  igual a 5 mostrar aprobado y si no, no aprobado -->
+
+  <div class="container">
+    <h1 class="texto-animado">Promedio de 3 notas de alumnos</h1>
+    <p onclick="notasAlumno()">Pincha para empezar.</p>
+
+    <div id="resultado"></div>
+  </div>
+  <script>
+    let resultado = document.getElementById("resultado");
+    function notasAlumno() {
+
+      let notas = [];
+      let sumaNotas = 0;
+
+      let nombre = prompt("Introduce el nombre del alumno.")
+      if (!/^[a-zA-Z]+$/.test(nombre)) {
+        resultado.innerHTML = "No has introducido un nombre válido. Por favor, introduce solo letras.";
+        return;
+      }
+
+      for (let i = 0; i < 3; i++) {
+        let notaAlumnos = parseFloat(prompt("Ingresa la nota " + (i + 1)));
+        if (isNaN(parseFloat(notaAlumnos)) || parseFloat(notaAlumnos) < 0 || parseFloat(notaAlumnos) > 10) {
+          resultado.innerHTML = "No has introducido un número del 0 al 10. Por favor introduce números válidos del 0 al 10.";
+          return;
+        }
+        notas[i] = notaAlumnos;
+        sumaNotas += notaAlumnos;
+      }
+      let promedio = sumaNotas / 3;
+      promedio = promedio.toFixed(2);
+
+      let table = `
+          <table id="estilos_tabla">
+            <tr>
+              <td>Nombre del alumno</td>
+              <td>${nombre}</td>
+              
+            </tr>
+            <tr>
+              <td>Notas del alumno</td>
+              <td>${notas.join(", ")}</td>
+            </tr>
+            <tr>
+              <td>Promedio del alumno</td>
+              <td>${promedio}</td>
+            </tr>
+          </table>
+        `;
+
+      if (promedio < 5) {
+        resultado.innerHTML = `${table} El alumno ${nombre} está suspendido.`;
+      } else if (promedio >= 5) {
+        resultado.innerHTML = `${table} El alumno ${nombre} está aprobado.`;
+      } else {
+        resultado.innerHTML = `Te has dejado alguna nota`;
+      }
+    }
+  </script>
+</body>
+</html>
