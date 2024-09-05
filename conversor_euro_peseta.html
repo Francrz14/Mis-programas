@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 93vh;
+            background: url("https://previews.123rf.com/images/anueing/anueing1509/anueing150900064/44895480-vector-s%C3%ADmbolo-del-euro-con-la-red-y-el-fondo-azul.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        h2 {
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-bottom: 40px;
+        }
+
+        h2 a {
+            color: black;
+            text-decoration: none;
+        }
+
+        h2:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+            color: blue!important;
+        }
+
+        #form_conversor {
+            width: 300px;
+            font-size: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding: 25px 30px 30px 25px;
+            background-color: rgb(215, 213, 213);
+            -webkit-box-shadow: 6px 7px 5px -2px rgba(0,0,0,0.8);
+            -moz-box-shadow: 6px 7px 5px -2px rgba(0,0,0,0.8);
+            box-shadow: 6px 7px 5px -2px rgba(0,0,0,0.8);
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            font-size: 20px;
+            width: 90%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 25px;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        #boton_conversor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        input[type="button"] {
+            margin-top: 10px;
+            width: 70%;
+            padding: 15px;
+            font-size: 22px;
+            border-radius: 5px;
+            border: none;
+            background-color: lightskyblue;
+            box-shadow: 2px 2px 5px rgba(143, 72, 176, 0.3);
+        }
+
+        input[type="button"]:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+            color: white;
+            box-shadow: 3px 3px 6px 4px rgba(69, 71, 222, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h2><a href="https://www.cambioeuro.es/peseta/" target="_blank">Conversor Euros a Pesetas</a></h2>
+    <form action="#" method="get" id="form_conversor">
+        <label for="euros">Euros</label>
+        <input type="number" name="euros" id="euros">
+        <label for="peseta">Pesetas</label>
+        <input type="text" name="peseta" id="peseta">
+        <div id="boton_conversor">
+            <input type="button" value="Mostrar resultado" id="empezar">
+        </div>
+    </form>
+    <script>
+        window.onload = function() {
+            document.getElementById("euros").focus();
+        };
+
+        document.getElementById("empezar").addEventListener('click', conversorEuroPesseta);
+
+        function formatearNúmeroConComas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function conversorEuroPesseta(){
+            let euros = parseInt(document.getElementById("euros").value);
+            let pessetas = euros * 166.386;
+            document.getElementById("peseta").value = formatearNúmeroConComas(pessetas.toFixed(2));
+        }
+    </script>
+</body>
+</html>
