@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kilómetros que haces</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 20px;
+            background-image: url("https://img.freepik.com/fotos-premium/fondo-dispensador-gasolina-combustible_587448-5484.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #estilos_tabla {
+            border: 2px solid black;
+            border-radius: 5px;
+            border-collapse: separate;
+            width: fit-content;
+            border-spacing: 7px;
+        }
+
+        #estilos_tabla td {
+            padding: 4px 7px;
+            border-radius: 5px;
+            margin: 15px;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="resultado"></p>
+    <script>
+        function Kilometrosquehaces() {
+            let mostrarResultado = document.getElementById("resultado");
+
+            let eurosQuePones; 
+            do {
+                eurosQuePones = parseFloat(prompt("Cuantos euros le echas?"));
+                if (isNaN(eurosQuePones)){
+                    alert("Por favor introduce un número válido");
+                }
+            } while (isNaN(eurosQuePones));
+
+            let precioCombustible;
+            do {
+                precioCombustible = parseFloat(prompt("Precio del combustible"));
+                if (isNaN(precioCombustible)) {
+                    alert("Por favor introduce un número válido");
+                } 
+            } while (isNaN(precioCombustible));
+
+            let consumoCoche;
+            do {
+                consumoCoche = parseFloat(prompt("Introduce la media a los 100 kilómetros"));
+                if (isNaN(consumoCoche)){
+                    alert("Por favor introduce un número válido");
+                } 
+            } while(isNaN(consumoCoche));
+            
+            let kilometrosTotales = (eurosQuePones / precioCombustible) * (100 / consumoCoche);
+
+            let tabla = 
+                `<table id="estilos_tabla">
+                    <tr>
+                        <td>Euros que le has echado</td>
+                        <td>${eurosQuePones.toFixed(0)} Euros</td>
+                    </tr>
+                    <tr>
+                        <td>Precio del combustible</td>
+                        <td>${precioCombustible.toFixed(2)} Euros</td>
+                    </tr>
+                    <tr>
+                        <td>Media a los 100 de tu coche </td>
+                        <td>${consumoCoche.toFixed(1)} Litros</td>
+                    </tr>
+                    <tr>
+                        <td>Kilómetros que puedes hacer</td>
+                        <td>${kilometrosTotales.toFixed(2)} Kilómetros</td>
+                    </tr>
+                 </table>`;
+
+            mostrarResultado.innerHTML = `${tabla}`;
+        }
+
+        window.addEventListener('load', Kilometrosquehaces);
+    </script>
+</body>
+
+</html>
