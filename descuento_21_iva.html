@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(250, 250, 222);
+        }
+
+        #container fieldset {
+            margin-top: 30px;
+            padding: 30px 15px 30px 15px;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 10px;
+            -webkit-box-shadow: 10px 9px 5px -4px rgba(183, 127, 207, 0.46);
+            -moz-box-shadow: 10px 9px 5px -4px rgba(183, 127, 207, 0.46);
+            box-shadow: 10px 9px 5px -4px rgba(183, 127, 207, 0.46);
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            margin-bottom: 10px;
+            margin-left: 10px;
+            font-size: 18px;
+            /* Aumentar el tamaño de fuente del input */
+            width: 180px;
+
+        }
+
+        input[type="button"] {
+            background-color: cornflowerblue;
+            border-radius: 10px;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-left: 140px;
+            color: white;
+            padding: 5px 10px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        #resultado {
+            margin-left: 0px;
+        }
+        #iva,
+        #roba {
+            margin-left: 33px;
+            padding: 2px;
+        } 
+
+        @media (max-width: 430px) {
+            body {
+                margin-right: 18px;
+            }
+
+            h1 {
+                font-size: 27px;
+                margin-bottom: 55px;
+            }
+            #container fieldset {
+                max-width: 80%;
+                box-sizing: border-box;
+                margin: auto;
+            }
+
+            input[type="number"],
+            input[type="text"] {
+                margin: 10px 0;
+                font-size: 16px;
+                width: auto;
+                box-shadow: none;
+            }
+
+            #iva,
+            #roba {
+                margin-left: 0;
+            }
+
+            
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Saber lo que te roba tu país</h1>
+    <form action="#" id="container">
+        <fieldset>
+            <legend>Descontar el 21% del producto que has comprado</legend>
+            <label for="iva">
+                Introduce el valor: <input type="number" name="iva" id="iva"><br>
+                Realmente te valdría: <input type="text" name="resultado" id="resultado"><br>
+                El estado te roba: <input type="text" name="roba" id="roba"><br>
+                <input type="button" value="Mostrar resultado" id="mostrar_resultado">
+            </label>
+        </fieldset>
+    </form>
+    <script>
+        function descontar21Iva() {
+            valor_introducido = parseFloat(document.getElementById("iva").value);
+            descuento_iva = valor_introducido * 0.79;
+            document.getElementById("resultado").value = descuento_iva.toFixed(2) + " euros";
+            document.getElementById("roba").value = valor_introducido.toFixed(2) * 0.21 + " euros";
+        }
+        document.getElementById("mostrar_resultado").addEventListener('click', descontar21Iva);
+
+    </script>
+</body>
+
+</html>
