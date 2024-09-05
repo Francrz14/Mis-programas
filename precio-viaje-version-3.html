@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>precio viaje</title>
+    <title>Precio Viaje</title>
     <style>
         body {
             display: flex;
@@ -30,14 +30,12 @@
 
         #form_gasolina {
             font-weight: 900;
-            padding: 20px 40px 25px 30px;
+            padding: 25px 40px 30px 40px;
             width: 220px;
-            height: 440px;
+            height: auto;
             background-color: gainsboro;
             border-radius: 10px;
             border: 1px solid black;
-            -webkit-box-shadow: 10px 10px 11px -4px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: 10px 10px 11px -4px rgba(0, 0, 0, 0.75);
             box-shadow: 10px 10px 11px -4px rgba(0, 0, 0, 0.75);
         }
 
@@ -55,7 +53,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-
         }
 
         #boton input[type="button"] {
@@ -67,11 +64,12 @@
             font-family: cursive;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.7);
             font-size: 16px;
+            cursor: pointer;
         }
 
-        #boton:hover {
-            transform: scale(1.1);
-            cursor: pointer;
+        #boton input[type="button"]:hover {
+            transform: scale(1.2);
+            background: lightsalmon;
         }
     </style>
 </head>
@@ -96,7 +94,7 @@
         Días semana
         <br>
         <select name="opcion-dias" id="opcion-dias">
-            <option value=""></option>
+            <option value="1">1 día</option>
             <option value="2">2 días</option>
             <option value="3">3 días</option>
             <option value="4">4 días</option>
@@ -108,19 +106,20 @@
         Semanas al mes
         <br>
         <select name="opcion-semanas" id="opcion-semanas">
-            <option value=""></option>
+            <option value="1">1 semana</option>
             <option value="2">2 semanas</option>
             <option value="3">3 semanas</option>
             <option value="4">4 semanas</option>
         </select>
         <br>
         <label for="total_viaje">El viaje te sale</label>
-        <input type="text" name="total_viaje" id="total_viaje">
+        <input type="text" name="total_viaje" id="total_viaje" readonly>
         <br>
         <div id="boton">
             <input type="button" value="Mostrar resultado" id="mostrar_resultado">
         </div>
     </form>
+
     <script>
         function costeViaje() {
             let precioCombustible = parseFloat(document.getElementById("precio_combustible").value);
@@ -136,14 +135,6 @@
             } else if (opcionViaje === "idayvuelta") {
                 totalViaje = 2 * (consumoCoche / 100) * kilometrosRecorridos * precioCombustible;
             }
-            /* Más abrebiado
-            if (opcionDias !== "") {
-                totalViaje *= parseFloat(opcionDias);
-            }
-
-            if (opcionSemanas !== "") {
-                totalViaje *= parseFloat(opcionSemanas);
-            }*/
 
             if (opcionDias !== "") {
                 let numeroDias = parseFloat(opcionDias);
@@ -151,12 +142,12 @@
                     totalViaje *= numeroDias;
                 }
             }
-            
+
             if (opcionSemanas !== "") {
                 let numeroSemanas = parseFloat(opcionSemanas);
                 if (!isNaN(numeroSemanas)) {
                     totalViaje *= numeroSemanas;
-                } 
+                }
             }
 
             document.getElementById("total_viaje").value = totalViaje.toFixed(2) + " Euros";
@@ -165,5 +156,5 @@
         document.getElementById("mostrar_resultado").addEventListener('click', costeViaje);
     </script>
 </body>
-</body>
 </html>
+
