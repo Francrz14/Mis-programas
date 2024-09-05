@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precio Viaje</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 93vh;
+            background-image: url('https://i.etsystatic.com/13022555/r/il/c40dd9/4154112429/il_1588xN.4154112429_6e1k.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #estilos-tabla {
+            border: 2px solid black;
+            color: white;
+            border-radius: 5px;
+            border-spacing: 7px;
+            width: fit-content;
+            border-collapse: separate; 
+            background-color: grey;
+        }
+
+        #estilos-tabla td {
+            border-radius: 5px;
+            padding: 5px 7px;
+            background-color: steelblue; 
+        }
+    </style>
+</head>
+<body>
+    <div id="resultado"></div>
+
+    <script>
+        function precioViaje() {
+
+            let precioCombustible;
+            do {
+                precioCombustible = parseFloat(prompt('Precio del combustible'));
+                if (isNaN(precioCombustible)) {
+                    alert('Por favor, pon números no letras');
+                }
+            } while (isNaN(precioCombustible));
+
+            let kilometrosRecorridos;
+            do {
+                kilometrosRecorridos = parseInt(prompt('Cuantos kilómetros has recorrido'));
+                if (isNaN(kilometrosRecorridos)) {
+                    alert('Por favor, pon números no letras');
+                }
+            } while (isNaN(kilometrosRecorridos));
+
+            let consumoMedioCoche;
+            do{
+                consumoMedioCoche = parseFloat(prompt('Consumo medio del coche (litros/100km)'));
+                if(isNaN(consumoMedioCoche)) {
+                    alert('Por favor, pon números no letras');
+                }
+            } while (isNaN(consumoMedioCoche));
+
+            let idaYvuelta;
+            do {
+                idaYvuelta = parseInt(prompt('Ida o ida y vuelta, pon 1 para ida y 2 para ida y vuelta'));
+                if (isNaN(idaYvuelta) || (idaYvuelta !== 1 && idaYvuelta !== 2)) {
+                    alert('Por favor, introduce un valor válido (1 para ida, 2 para ida y vuelta).');
+                }
+            } while (isNaN(idaYvuelta) || (idaYvuelta !== 1 && idaYvuelta !== 2));
+
+            let diasSemana;
+            do {
+                diasSemana = parseInt(prompt('Cuantos días a la semana haces? pon del 1 al 7 para los días'));
+                if (isNaN(diasSemana) || diasSemana < 1 || diasSemana > 7) {
+                    alert('Por favor, introduce un número entre 1 y 7 para los días.');
+                }
+            } while (isNaN(diasSemana) || diasSemana < 1 || diasSemana > 7);
+
+            let semanasMes;
+            do {
+                semanasMes = parseInt(prompt('Cuantas semanas al mes haces? pon del 1 al 4 para las semanas'));
+                if (isNaN(semanasMes) || semanasMes < 1 || semanasMes > 4) {
+                    alert('Por favor, introduce un número entre 1 y 4 para las semanas.');
+                } 
+            } while (isNaN(semanasMes) || semanasMes < 1 || semanasMes > 4);
+
+            let mesesAño;
+            do {
+                mesesAño = parseInt(prompt('Cuantos meses quieres calcular? pon de 1 a 12 para los meses'));
+                if (isNaN(mesesAño) || mesesAño < 1 || mesesAño > 12) {
+                    alert('Por favor, introduce un número entre 1 y 12 para los meses.');
+                }
+            } while (isNaN(mesesAño) || mesesAño < 1 || mesesAño > 12);
+
+            let totalPrecio = (precioCombustible / 100) * consumoMedioCoche * kilometrosRecorridos;
+
+            if (idaYvuelta === 2) {
+                totalPrecio *= 2;
+            }
+
+            if (diasSemana > 1) {
+                totalPrecio *= diasSemana;
+            }
+
+            if (semanasMes > 1) {
+                totalPrecio *= semanasMes;
+            }
+
+            if (mesesAño > 1) {
+                totalPrecio *= mesesAño;
+            }
+
+            let totalKilometros = kilometrosRecorridos * diasSemana * semanasMes * mesesAño;
+
+            let tipoViaje = (idaYvuelta === 1) ? 'Ida' : 'Ida y vuelta';
+
+            document.getElementById('resultado').innerHTML = 
+            `<table id="estilos-tabla">
+                <tr>
+                    <td colspan="2" align="center">App Precio Viaje</td>
+                </tr>
+                <tr>
+                    <td>Precio del combustible</td>
+                    <td>${precioCombustible.toFixed(2)} Euros</td>
+                </tr>
+                <tr>
+                    <td>Kilómetros recorridos</td>
+                    <td>${kilometrosRecorridos} Kilómetros</td>
+                </tr>
+                <tr>
+                    <td>Consumo medio del coche</td>
+                    <td>${consumoMedioCoche} litros/100km</td>
+                </tr>
+                <tr>
+                    <td>Tipo de viaje</td>
+                    <td>${tipoViaje}</td>
+                </tr>
+                <tr>
+                    <td>Días a la semana</td>
+                    <td>${diasSemana} Días</td>
+                </tr>
+                <tr>
+                    <td>Semanas al mes</td>
+                    <td>${semanasMes} Semanas</td>
+                </tr>
+                <tr>
+                    <td>Meses al año</td>
+                    <td>${mesesAño} Meses</td>
+                </tr>
+                <tr>
+                    <td>Total de kilómetros recorridos</td>
+                    <td>${totalKilometros} Kilómetros</td>
+                </tr>
+                <tr>
+                    <td>El viaje te ha salido</td>
+                    <td>${totalPrecio.toFixed(2)} €</td>
+                </tr>
+            </table>`;
+        }
+        window.addEventListener('load', precioViaje);
+    </script>
+</body>
+</html>
+
+
+
